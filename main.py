@@ -1,4 +1,5 @@
 import pygame
+import random
 
 #se inicializa
 pygame.init()
@@ -19,9 +20,10 @@ jugador_x_cambio = 0
 
 #variable enemigo 
 img_enemigo= pygame.image.load("enemigo.png")
-enemigo_x= 368 
-enemigo_y = 536
-enemigo_x_cambio = 0
+enemigo_x= random.randint(0,736) 
+enemigo_y = random.randint(50,150)
+enemigo_x_cambio = 0.3
+enemigo_y_cambio = 50
 
 #funcionpara mostrar jugador
 def jugador(x,y):
@@ -55,15 +57,24 @@ while ejecutar:
                 jugador_x_cambio = 0
 
     jugador_x += jugador_x_cambio
-    #mantener bordes 
+    #mantener bordes al jugador 
     if jugador_x <= 0:
         jugador_x = 0
     elif jugador_x >= 736:
         jugador_x = 736
-
+    
+    #modificar ubicacion del enemigo
+    enemigo_x += enemigo_x_cambio
+    #mantener bordes al enemigo 
+    if enemigo_x <= 0:
+        enemigo_x_cambio = 0.3
+        enemigo_y += enemigo_y_cambio
+    elif enemigo_x >= 736:
+        enemigo_x_cambio = -0.3
+        enemigo_y += enemigo_y_cambio
 
     jugador(jugador_x,jugador_y)
-    enemigo(jugador_x,jugador_y)
+    enemigo(enemigo_x,enemigo_y)
 
  
     #actualizar
